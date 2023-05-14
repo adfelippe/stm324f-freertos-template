@@ -53,7 +53,7 @@ void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
 static void MX_USART2_UART_Init(void);
 /* USER CODE BEGIN PFP */
-static void taskBlinkLed2(void *pv);
+static void task1(void *pv);
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -96,7 +96,7 @@ int main(void)
     HAL_Delay(150);
   }
 
-  xTaskCreate(taskBlinkLed2,
+  xTaskCreate(task1,
               "BlinkLD2",
               configMINIMAL_STACK_SIZE * 2,
               NULL,
@@ -231,11 +231,10 @@ void vApplicationStackOverflowHook(TaskHandle_t xTask,
   }
 }
 
-static void taskBlinkLed2(void *pv)
+static void task1(void *pv)
 {
   while (1)
   {
-    HAL_GPIO_TogglePin(LD2_GPIO_Port, LD2_Pin);
     vTaskDelay(pdMS_TO_TICKS(1000));
   }
 }
